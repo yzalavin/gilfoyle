@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
 RSpec.describe Message::Creator do
-  subject(:message) { Message::Create.new({}) }
+  subject(:message) { Message::Creator.new({}) }
 
   describe 'validations' do
     it 'may be called from outiside object' do
@@ -20,5 +20,14 @@ RSpec.describe Message::Creator do
   end
 
   describe 'encryption' do
+    it 'will delegate encryption to a special object' do
+      expect(Message::Encryptor).to receive(:new)
+      message.encrypt
+    end
+
+    it 'will be called before storing an object' do
+      expect(message).to receive(:encrypt)
+      message.store!
+    end
   end
 end

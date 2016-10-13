@@ -4,7 +4,7 @@ module Message
     attr_reader :params
     public
 
-    def initialize(params)
+    def initialize(params = {})
       @params = params
     end
 

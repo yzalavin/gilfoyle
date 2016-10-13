@@ -4,8 +4,8 @@ RSpec.describe Message::Base do
   let(:params) { { text: 'lorem', days: 3, visits: 5, password: 'ipsum'} }
   let(:message) { Message::Base.new(params) }
 
-  it 'could be initialized with an empty hash' do
-    expect{ Message::Base.new({}) }.to_not raise_error
+  it 'could be initialized without params' do
+    expect{ Message::Base.new }.to_not raise_error
   end
 
   describe 'from initialized hash will return' do

@@ -6,6 +6,11 @@ module Message
 
     def store!
       valid?
+      encrypt
+    end
+
+    def encrypt
+      Encryptor.new
     end
   end
 end
