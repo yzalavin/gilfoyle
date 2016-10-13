@@ -1,1 +1,2 @@
-require_relative 'models/message/create'
+require_relative 'models/message/creator'
+require_relative 'models/message/validator'
