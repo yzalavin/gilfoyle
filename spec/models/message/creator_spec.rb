@@ -29,8 +29,13 @@ RSpec.describe Message::Creator do
 
   describe 'redis' do
     it 'will generate a random key before creation' do
-      expect(message).to receive(:store_key)
+      expect(message).to receive(:store_key).exactly(2)
       message.store!
+    end
+
+    it 'will return a random key after calling a method' do
+      allow(message).to receive(:store_key).and_return('Store key')
+      expect(message.store!).to eq 'Store key'
     end
   end
 end

@@ -7,6 +7,7 @@ module Message
       return false unless valid?
       encrypt
       ::Redis.current.set "message:#{store_key}", to_json
+      store_key
     end
 
     private
@@ -20,7 +21,7 @@ module Message
     end
 
     def store_key
-      SecureRandom.hex
+      @store_key ||= SecureRandom.hex
     end
 
     def to_json
