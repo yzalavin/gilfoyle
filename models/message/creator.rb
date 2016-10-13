@@ -1,11 +1,5 @@
 module Message
-  class Creator
-    attr_reader :params
-
-    def initialize(params)
-      @params = params
-    end
-
+  class Creator < Base
     def valid?
       Validator.new
     end
