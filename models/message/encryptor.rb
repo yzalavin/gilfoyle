@@ -16,8 +16,7 @@ module Message
     def decrypt!
       %i(text password).each do |param|
         decryption = set_up_decryption
-        crypt = decryption.update(Base64.decode64(public_send(param)))
-        crypt << decryption.final
+        crypt = decryption.update(Base64.decode64(public_send(param))) + decryption.final
         public_send("#{param}=", crypt)
       end
     end
