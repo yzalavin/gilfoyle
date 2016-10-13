@@ -1,5 +1,7 @@
 module Message
   class Base
+    PARAMS = %i(text days visits password encryption_iv)
+
     private
     attr_reader :params
     public
@@ -8,7 +10,7 @@ module Message
       @params = params
     end
 
-    %i(text days visits password encryption_iv).each do |field|
+    PARAMS.each do |field|
       define_method field do
         params[field]
       end

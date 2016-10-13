@@ -4,13 +4,9 @@ RSpec.describe Message::Creator do
   subject(:message) { Message::Creator.new({}) }
 
   describe 'validations' do
-    it 'may be called from outiside object' do
-      expect(subject).to respond_to :valid?
-    end
-
-    it 'will delagate validations to a special object' do
+    it 'will delegate validations to a special object' do
       expect(Message::Validator).to receive(:new)
-      message.valid?
+      message.send(:valid?)
     end
 
     it 'will be called before storing an object' do
@@ -22,11 +18,18 @@ RSpec.describe Message::Creator do
   describe 'encryption' do
     it 'will delegate encryption to a special object' do
       expect(Message::Encryptor).to receive(:new)
-      message.encrypt
+      message.send(:encrypt)
     end
 
     it 'will be called before storing an object' do
       expect(message).to receive(:encrypt)
+      message.store!
+    end
+  end
+
+  describe 'redis' do
+    it 'will generate a random key before creation' do
+      expect(message).to receive(:store_key)
       message.store!
     end
   end

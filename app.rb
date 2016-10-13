@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'yaml'
+require 'redis'
 
 CONFIG = YAML.load_file("config/application.yml")
 
