@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-RSpec.describe Message::Create do
+RSpec.describe Message::Creator do
   subject(:message) { Message::Create.new({}) }
 
   it 'could be instantiated with a hash of params' do

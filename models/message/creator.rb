@@ -1,5 +1,5 @@
 module Message
-  class Create
+  class Creator
     attr_reader :params
 
     def initialize(params)
