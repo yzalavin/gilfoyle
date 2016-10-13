@@ -1,3 +1,3 @@
 require 'rspec'
 
-require_relative '../main.rb'
+require_relative '../app.rb'

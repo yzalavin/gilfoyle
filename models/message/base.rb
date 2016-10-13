@@ -12,6 +12,10 @@ module Message
       define_method field do
         params[field]
       end
+
+      define_method "#{field}=" do |value|
+        params[field] = value
+      end
     end
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe Message::Base do
     expect{ Message::Base.new }.to_not raise_error
   end
 
-  describe 'from initialized hash will return' do
+  describe 'will allow to get params' do
     it 'text' do
       expect(message.text).to eq 'lorem'
     end
@@ -31,6 +31,13 @@ RSpec.describe Message::Base do
 
     it 'will return nil if parameter is not specified' do
       expect(Message::Base.new({}).text).to eq nil
+    end
+  end
+
+  describe 'will allow to write params' do
+    it 'that exists' do
+      message.text = 'ipsum'
+      expect(message.text).to eq 'ipsum'
     end
   end
 

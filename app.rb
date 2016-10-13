@@ -1,11 +1,8 @@
 require 'sinatra'
 
-get '/' do
-  erb :main
-end
+require_relative 'models/message/base'
+require_relative 'models/message/creator'
+require_relative 'models/message/validator'
+require_relative 'models/message/encryptor'
 
-post '/create_message' do
-  p '-----------------'
-  p params
-  erb :final
-end
+require_relative 'controller'
