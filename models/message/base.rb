@@ -8,7 +8,7 @@ module Message
       @params = params
     end
 
-    %i(text days visits password).each do |field|
+    %i(text days visits password encryption_iv).each do |field|
       define_method field do
         params[field]
       end

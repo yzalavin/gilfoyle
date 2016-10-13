@@ -39,6 +39,11 @@ RSpec.describe Message::Base do
       message.text = 'ipsum'
       expect(message.text).to eq 'ipsum'
     end
+
+    it 'an iv param' do
+      message.encryption_iv = 'ipsum'
+      expect(message.encryption_iv).to eq 'ipsum'
+    end
   end
 
   it 'will not allow to obtain origin initialized hash' do
