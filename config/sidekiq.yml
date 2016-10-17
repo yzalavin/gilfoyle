@@ -1,6 +1,6 @@
 verbose: true
 pidfile: /var/run/sidekiq.pid
 logfile: /var/log/sidekiq.log
-concurrency: 10
+concurrency: 1
 queues:
     - default
