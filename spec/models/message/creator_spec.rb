@@ -52,7 +52,7 @@ RSpec.describe Message::Creator do
   describe 'background process', t: true do
     it 'will call it if days is more than zero' do
       allow(message).to receive(:valid?).and_return(true)
-      expect(Message::DestroyWorker).to receive(:perform)
+      expect(Message::DestroyWorker).to receive(:perform_in)
       message.store!
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Message::Creator do
     it 'will not call it if days is zero or missing' do
       message = Message::Creator.new(text: 'lorem', days: nil, visits: 5)
       allow(message).to receive(:valid?).and_return(true)
-      expect(Message::DestroyWorker).to_not receive(:perform)
+      expect(Message::DestroyWorker).to_not receive(:perform_in)
       message.store!
     end
   end

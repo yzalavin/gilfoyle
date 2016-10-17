@@ -23,7 +23,7 @@ module Message
 
     def create_background_process
       return unless days.to_i > 0
-      Message::DestroyWorker.perform(3)
+      Message::DestroyWorker.perform_in(days.to_i * 24 * 60 * 60, store_key)
     end
   end
 end
