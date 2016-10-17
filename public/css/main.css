@@ -26,3 +26,29 @@ h1 a {
 .error-field {
   color: red;
 }
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+textarea, input {
+  width: 540px;
+  border: none;
+  text-decoration: none;
+  resize: none;
+}
+
+textarea {
+  padding-bottom: 100px;
+}
+
+input[type=submit] {
+    padding:5px 15px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 100px;
+    color: white;
+}
