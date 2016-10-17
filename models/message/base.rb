@@ -19,5 +19,17 @@ module Message
         params[field] = value
       end
     end
+
+    def current_params
+      {}.tap { |hash| Base::PARAMS.each { |param| hash[param] = send(param) }}
+    end
+
+    def encrypt!
+      Encryptor.new(current_params).encrypt!
+    end
+
+    def valid?
+      Validator.new(current_params).valid?
+    end
   end
 end

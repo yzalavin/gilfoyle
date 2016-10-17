@@ -1,14 +1,11 @@
 require_relative '../../spec_helper'
 
 RSpec.describe Message::Creator do
-  subject(:message) { Message::Creator.new({}) }
+  let(:params) { {text: 'lorem', days: 3, visits: 5, password: 'ipsum'} }
+  subject(:message) { Message::Creator.new(params) }
+  let(:store_key) { 'test_key' }
 
   describe 'validations' do
-    it 'will delegate validations to a special object' do
-      expect(Message::Validator).to receive(:new)
-      message.send(:valid?)
-    end
-
     it 'will be called before storing an object' do
       expect(message).to receive(:valid?)
       message.store!
@@ -16,26 +13,39 @@ RSpec.describe Message::Creator do
   end
 
   describe 'encryption' do
-    it 'will delegate encryption to a special object' do
-      expect(Message::Encryptor).to receive(:new)
-      message.send(:encrypt)
-    end
-
-    it 'will be called before storing an object' do
-      expect(message).to receive(:encrypt)
-      message.store!
-    end
+    # it 'will be called before storing an object' do
+    #   allow(message).to receive(:valid?).and_return(true)
+    #   expect(Message::Encryptor).to receive(:new)
+    #   message.store!
+    # end
   end
 
   describe 'redis' do
     it 'will generate a random key before creation' do
+      allow(message).to receive(:valid?).and_return(true)
       expect(message).to receive(:store_key).exactly(2)
       message.store!
     end
 
     it 'will return a random key after calling a method' do
-      allow(message).to receive(:store_key).and_return('Store key')
-      expect(message.store!).to eq 'Store key'
+      allow(message).to receive(:valid?).and_return(true)
+      allow(message).to receive(:store_key).and_return(store_key)
+      expect(message.store!).to eq store_key
+    end
+
+    it 'the result will be stored' do
+      allow(message).to receive(:valid?).and_return(true)
+      Redis.current.set('message:test_key', nil)
+      allow(message).to receive(:store_key).and_return(store_key)
+      message.store!
+      expect(Redis.current.get('message:test_key')).to_not eq ''
+    end
+
+    it 'the result will be stored in encrypted format' do
+      allow(message).to receive(:valid?).and_return(true)
+      allow(message).to receive(:store_key).and_return(store_key)
+      message.store!
+      expect(JSON.parse(Redis.current.get('message:test_key'))['text']).to_not eq message.text
     end
   end
 end

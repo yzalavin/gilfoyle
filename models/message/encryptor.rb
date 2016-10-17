@@ -11,6 +11,7 @@ module Message
         public_send("#{param}=", Base64.encode64(crypt))
       end
       encryption_iv = iv
+      self
     end
 
     def decrypt!
@@ -19,6 +20,7 @@ module Message
         crypt = decryption.update(Base64.decode64(public_send(param))) + decryption.final
         public_send("#{param}=", crypt)
       end
+      self
     end
 
     private

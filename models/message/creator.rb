@@ -5,27 +5,18 @@ module Message
   class Creator < Base
     def store!
       return false unless valid?
-      encrypt
-      ::Redis.current.set "message:#{store_key}", to_json
+      Redis.current.set "message:#{store_key}", to_encrypted_json
       store_key
     end
 
     private
 
-    def encrypt
-      Encryptor.new(self)
-    end
-
-    def valid?
-      Validator.new
-    end
-
     def store_key
       @store_key ||= SecureRandom.hex
     end
 
-    def to_json
-      {}.tap { |hash| Base::PARAMS.each { |param| hash[param] = send(param) }}
+    def to_encrypted_json
+      encrypt!.current_params.to_json
     end
   end
 end
