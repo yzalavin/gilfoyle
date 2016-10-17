@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
 RSpec.describe Message::Base do
-  let(:params) { { text: 'lorem', days: 3, visits: 5, password: 'ipsum'} }
+  let(:params) { { text: 'lorem', hours: 3, visits: 5, password: 'ipsum'} }
   let(:message) { Message::Base.new(params) }
 
   it 'could be initialized without params' do
@@ -13,8 +13,8 @@ RSpec.describe Message::Base do
       expect(message.text).to eq 'lorem'
     end
 
-    it 'days' do
-      expect(message.days).to eq 3
+    it 'hours' do
+      expect(message.hours).to eq 3
     end
 
     it 'visits' do

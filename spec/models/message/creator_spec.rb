@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
 RSpec.describe Message::Creator do
-  let(:params) { {text: 'lorem', days: 3, visits: 5, password: 'ipsum'} }
+  let(:params) { {text: 'lorem', hours: 3, visits: 5, password: 'ipsum'} }
   subject(:message) { Message::Creator.new(params) }
   let(:store_key) { 'test_key' }
 
@@ -29,7 +29,7 @@ RSpec.describe Message::Creator do
   describe 'redis' do
     it 'will generate a random key before creation' do
       allow(message).to receive(:valid?).and_return(true)
-      expect(message).to receive(:store_key)
+      expect(message).to receive(:store_key).exactly(2)
       message.store!
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Message::Creator do
   end
 
   describe 'background process', t: true do
-    it 'will call it if days is more than zero' do
+    it 'will call it if hours is more than zero' do
       allow(message).to receive(:valid?).and_return(true)
       expect(Message::DestroyWorker).to receive(:perform_in)
       message.store!
@@ -62,8 +62,8 @@ RSpec.describe Message::Creator do
     #   message.store!
     # end
 
-    it 'will not call it if days is zero or missing' do
-      message = Message::Creator.new(text: 'lorem', days: nil, visits: 5)
+    it 'will not call it if hours is zero or missing' do
+      message = Message::Creator.new(text: 'lorem', hours: nil, visits: 5)
       allow(message).to receive(:valid?).and_return(true)
       expect(Message::DestroyWorker).to_not receive(:perform_in)
       message.store!

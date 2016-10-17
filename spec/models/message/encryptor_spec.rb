@@ -2,7 +2,7 @@ require_relative '../../spec_helper'
 
 RSpec.describe Message::Encryptor do
   let(:iv) { "d9'@\xD78q\xBF\xC5-Z\xAC\xC48Zy" }
-  let(:params) { { text: 'lorem', days: 3, visits: 5, password: 'ipsum', encryption_iv: iv} }
+  let(:params) { { text: 'lorem', hours: 3, visits: 5, password: 'ipsum', encryption_iv: iv} }
   let(:message) { Message::Encryptor.new(params) }
 
   it 'will respond to encrypt! method' do

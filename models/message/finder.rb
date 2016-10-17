@@ -23,7 +23,7 @@ module Message
     def params
       {}.tap do |hash|
         JSON.parse(record).each do |k, v|
-          hash[k.to_sym] = %w(days visits).include?(k) ? v.to_i : v
+          hash[k.to_sym] = %w(hours visits).include?(k) ? v.to_i : v
         end
       end
     end

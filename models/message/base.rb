@@ -1,6 +1,6 @@
 module Message
   class Base
-    PARAMS = %i(text days visits password encryption_iv)
+    PARAMS = %i(text hours visits password encryption_iv)
 
     private
     attr_reader :params
