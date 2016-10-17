@@ -9,6 +9,8 @@ Sidekiq.configure_client do |config|
   config.redis = { size: 1 }
 end
 
+Redis.current.flushall
+
 require_relative 'models/message/base'
 require_relative 'models/message/creator'
 require_relative 'models/message/validator'
