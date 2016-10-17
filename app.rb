@@ -19,4 +19,7 @@ require_relative 'models/message/encryptor'
 require_relative 'models/message/finder'
 require_relative 'models/message/destroy_worker'
 
+require_relative 'helpers/message_presenter'
+require_relative 'helpers/message'
+
 require_relative 'controller'

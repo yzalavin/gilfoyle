@@ -3,9 +3,10 @@ get '/' do
 end
 
 post '/message' do
-  @message = Message::Creator.new(message_params).store!
+  @message = Message::Creator.new(Helpers::Message.new.params(params)).store!
   unless @message.is_a? Message::Error
     @link = "/message/#{@message.store_key}"
+    @message_duration = Helpers::MessagePresenter.new(@message).duration
     erb :final
   else
     @error = @message.humanize
@@ -20,8 +21,4 @@ get '/message/:token' do
   else
     erb :not_found
   end
-end
-
-def message_params
-  {}.tap { |hash| Message::Base::PARAMS.each { |param| hash[param] = params[param] }}
 end
