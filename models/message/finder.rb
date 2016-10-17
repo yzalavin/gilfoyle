@@ -8,7 +8,10 @@ module Message
 
     def find
       return false unless record
-      Base.new params
+      Base.new(params).tap do |message|
+        message.visits = message.visits - 1
+        message.visits.zero? ? destroy : decrement_counter(message)
+      end
     end
 
     private
@@ -23,6 +26,14 @@ module Message
           hash[k.to_sym] = %w(days visits).include?(k) ? v.to_i : v
         end
       end
+    end
+
+    def destroy
+      Redis.current.del("message:#{key}")
+    end
+
+    def decrement_counter(message)
+      Redis.current.set "message:#{key}", message.current_params.to_json
     end
   end
 end
