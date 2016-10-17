@@ -7,7 +7,7 @@ module Message
     def encrypt!
       %i(text password).each do |param|
         current = public_send(param)
-        next if current.nil?
+        next if current.nil? || current.strip.length.zero?
         encryption = set_up_encryption
         crypt = encryption.update(public_send(param)) + encryption.final
         public_send("#{param}=", Base64.encode64(crypt))

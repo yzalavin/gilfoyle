@@ -10,6 +10,10 @@ RSpec.describe Message::Encryptor do
   end
 
   describe 'encryption' do
+    it 'will return message' do
+      expect(message.encrypt!).to eq message
+    end
+
     it 'will update origin object with encrypted text' do
       message.encrypt!
       expect(message.text).to_not eq 'lorem'
@@ -26,9 +30,13 @@ RSpec.describe Message::Encryptor do
     end
 
     it 'will not raise error if param is not present', t: true do
-      params = { text: 'lorem', hours: 3, visits: 5, encryption_iv: iv}
-      message = Message::Encryptor.new(params)
-      expect{ message.encrypt! }.to_not raise_error TypeError
+      [
+        { text: 'lorem', hours: 3, visits: 5, encryption_iv: iv},
+        { text: 'lorem', hours: 3, visits: 5, password: '', encryption_iv: iv}
+      ].each do |params|
+        message = Message::Encryptor.new(params)
+        expect(message.encrypt!).to eq message
+      end
     end
   end
 
