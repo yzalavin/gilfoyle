@@ -1,55 +1,91 @@
 body {
   font: 400 16px 'Muli', sans-serif !important;
-  margin: 0;
-  padding: 0;
-}
-
-section {
-  margin: 0;
-  max-width: 100%;
   padding: 30px;
-  text-align: center;
-  overflow: auto;
-}
-
-.site-title {
-  font-size: 30px;
-  font-weight: 300;
-  text-transform: uppercase;
-}
-
-h1 a {
-  text-decoration: none;
-  color: black;
+  margin: 0;
 }
 
 .error-field {
   color: red;
 }
 
-textarea:focus, input:focus{
-  outline: none;
+.main-form {
+  width: 540px;
 }
 
-textarea, input {
+.main-form--text {
   width: 540px;
-  border: none;
+  height: 200px;
   text-decoration: none;
   resize: none;
   font-size: 12px;
+  border-color: #ccc;
+  font-size: 16px;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 
-textarea {
-  padding-bottom: 100px;
+.main-form--fieldset {
+  float: right;
+  width: 286px;
+  border: 0;
+  padding-right: 0;
+  margin: 10px 0 0;
 }
 
-input[type=submit] {
-    padding:5px 15px;
-    background:#ccc;
-    border:0 none;
-    cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    width: 100px;
-    color: white;
+.main-form--text:focus, .main-form--input:focus{
+  outline: none;
+}
+
+.main-form--input {
+  border: none;
+  text-decoration: none;
+  resize: none;
+  font-size: 13px;
+  width: 63px;
+  margin-right: 10px;
+}
+
+.main-form--input--hours {
+  width: 39px;
+}
+
+.main-form--input--visits {
+  width: 39px;
+}
+
+.main-form--submit {
+  padding:5px 15px;
+  background: rgba(204, 204, 204, .8);
+  border:0 none;
+  cursor:pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 4px;
+  width: 100px;
+  color: white;
+  margin-right: 0;
+}
+
+.main-form--submit:hover {
+  background: rgba(204, 204, 204, .9);
+}
+
+.main-form--submit:active {
+  background: rgba(204, 204, 204, 1);
+}
+
+.about {
+  font-size: 11px;
+  color: #ccc;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 55px;
+  right: 30px;
+  padding: 30px;
+}
+
+.about--link {
+  font-size: 11px;
+  color: #ccc;
 }

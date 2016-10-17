@@ -1,13 +1,15 @@
-<form method='post' action='/message'>
-  <textarea name="text" placeholder='Enter your super secret message...'></textarea></br>
-  <input name="hours" type="text" placeholder='Hours'></br>
-  <input name="visits" type='text' placeholder='Visits'></br>
-  <input name='password' type="text" placeholder='Password'></br>
-  <input type="submit" value="Send">
+<form class='main-form' method='post' action='/message'>
+  <textarea class='main-form--text' name="text" placeholder='Enter your super secret message...'></textarea>
+  <fieldset class="main-form--fieldset">
+    <input class='main-form--input' name='password' type="text" placeholder='Password'>
+    <input class='main-form--input main-form--input--hours' name="hours" type="text" placeholder='Hours'>
+    <input class='main-form--input main-form--input--visits' name="visits" type='text' placeholder='Visits'>
+    <input class='main-form--input main-form--submit' type="submit" value="Send">
+  </fieldset>
 </form>
 
 <% if @error %>
   <section class='error-field'>
     <%= @error %>
-  <section>
+  </section>
 <% end %>
