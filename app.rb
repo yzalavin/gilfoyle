@@ -5,6 +5,10 @@ require 'sidekiq'
 
 CONFIG = YAML.load_file("config/example.yml")
 
+Sidekiq.configure_client do |config|
+  config.redis = { size: 1 }
+end
+
 require_relative 'models/message/base'
 require_relative 'models/message/creator'
 require_relative 'models/message/validator'
