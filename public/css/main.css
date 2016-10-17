@@ -17,3 +17,8 @@ section {
   font-weight: 300;
   text-transform: uppercase;
 }
+
+h1 a {
+  text-decoration: none;
+  color: black;
+}
