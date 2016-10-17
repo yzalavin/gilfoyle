@@ -5,3 +5,9 @@
   <input name='password' type="text" placeholder='Password'></br>
   <input type="submit" value="Send">
 </form>
+
+<% if @error %>
+  <section class='error-field'>
+    <%= @error %>
+  <section>
+<% end %>

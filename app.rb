@@ -6,6 +6,7 @@ CONFIG = YAML.load_file("config/application.yml")
 
 require_relative 'models/message/base'
 require_relative 'models/message/creator'
+require_relative 'models/message/error'
 require_relative 'models/message/validator'
 require_relative 'models/message/encryptor'
 

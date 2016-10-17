@@ -10,6 +10,10 @@ RSpec.describe Message::Creator do
       expect(message).to receive(:valid?)
       message.store!
     end
+
+    it 'will return error object if will not pass' do
+      expect(Message::Creator.new({}).store!).to be_a Message::Error
+    end
   end
 
   describe 'encryption' do
@@ -23,14 +27,8 @@ RSpec.describe Message::Creator do
   describe 'redis' do
     it 'will generate a random key before creation' do
       allow(message).to receive(:valid?).and_return(true)
-      expect(message).to receive(:store_key).exactly(2)
+      expect(message).to receive(:store_key)
       message.store!
-    end
-
-    it 'will return a random key after calling a method' do
-      allow(message).to receive(:valid?).and_return(true)
-      allow(message).to receive(:store_key).and_return(store_key)
-      expect(message.store!).to eq store_key
     end
 
     it 'the result will be stored' do

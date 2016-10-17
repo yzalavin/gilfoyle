@@ -22,3 +22,7 @@ h1 a {
   text-decoration: none;
   color: black;
 }
+
+.error-field {
+  color: red;
+}

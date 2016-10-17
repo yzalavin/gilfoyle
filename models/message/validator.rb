@@ -7,6 +7,14 @@ module Message
       true
     end
 
+    def error_type
+      case
+      when !text_present? then :missing_text
+      when !days_or_visits_present? then :invalid_days_or_visits
+      when !valid_password? then :short_password
+      end
+    end
+
     private
 
     def text_present?
@@ -18,7 +26,7 @@ module Message
     end
 
     def valid_password?
-      return true if password.nil?
+      return true if password.nil? || password.length == 0
       password.strip.length > 5
     end
   end

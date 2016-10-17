@@ -3,9 +3,14 @@ get '/' do
 end
 
 post '/message' do
-  @message = Message::Creator.new()
-  @link = '/message/fucking_awesome_link'
-  erb :final
+  @message = Message::Creator.new(message_params).store!
+  unless @message.is_a? Message::Error
+    @link = "/message/#{@message.store_key}"
+    erb :final
+  else
+    @error = @message.humanize
+    erb :main
+  end
 end
 
 get '/message/:token' do
