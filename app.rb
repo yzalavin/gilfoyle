@@ -2,7 +2,7 @@ require 'sinatra'
 require 'yaml'
 require 'redis'
 
-CONFIG = YAML.load_file("config/application.yml")
+CONFIG = YAML.load_file("config/example.yml")
 
 require_relative 'models/message/base'
 require_relative 'models/message/creator'
