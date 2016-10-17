@@ -17,14 +17,14 @@ module Message
     private
 
     def to_encrypted_json
-      current_params.to_json
-      # encrypt!.current_params.to_json
+      # current_params.to_json
+      encrypt!.current_params.to_json
     end
 
     def create_background_process
       return unless hours.to_i > 0
-      Message::DestroyWorker.perform_async(store_key)
-      # Message::DestroyWorker.perform_in(hours.to_i * 60 * 60, store_key)
+      # Message::DestroyWorker.perform_async(store_key)
+      Message::DestroyWorker.perform_in(hours.to_i * 60 * 60, store_key)
     end
   end
 end

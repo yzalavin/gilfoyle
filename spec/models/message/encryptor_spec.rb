@@ -24,6 +24,12 @@ RSpec.describe Message::Encryptor do
       message.encrypt!
       expect(message.password).to_not eq message.text
     end
+
+    it 'will not raise error if param is not present', t: true do
+      params = { text: 'lorem', hours: 3, visits: 5, encryption_iv: iv}
+      message = Message::Encryptor.new(params)
+      expect{ message.encrypt! }.to_not raise_error TypeError
+    end
   end
 
   describe 'decryption' do
