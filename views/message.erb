@@ -1,8 +1,10 @@
 <p><%= @message.text %></p>
-<% if @message.visits && @message.days && @message.visits > 0 && @message.days > 0 %>
-  <p>You have <%= @message.visits %> visits or <%= @message.days %> days left.</p>
-<% elsif @message.visits && @message.visits > 0 %>
-  <p>You have <%= @message.visits %> visits left.</p>
-<% elsif @message.days && @message.days > 0 %>
-  <p>You have <%= @message.days %> days left.</p>
+<% if false %>
+  <% if @message.visits && @message.days && @message.visits > 0 && @message.days > 0 %>
+    <p>You have <%= @message.visits %> visits or <%= @message.days %> days left.</p>
+  <% elsif @message.visits && @message.visits > 0 %>
+    <p>You have <%= @message.visits %> visits left.</p>
+  <% elsif @message.days && @message.days > 0 %>
+    <p>You have <%= @message.days %> days left.</p>
+  <% end %>
 <% end %>
