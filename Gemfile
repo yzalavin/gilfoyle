@@ -5,3 +5,4 @@ gem 'sinatra'
 gem 'rspec'
 gem 'redis', '~> 3.2'
 gem 'sidekiq'
+gem "unicorn"
