@@ -6,6 +6,7 @@ module Message
     def store!
       return Message::Error.new(current_params) unless valid?
       Redis.current.set "message:#{store_key}", to_encrypted_json
+      self
     end
 
     def store_key
