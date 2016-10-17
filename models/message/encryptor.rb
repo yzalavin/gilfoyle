@@ -9,18 +9,19 @@ module Message
         current = public_send(param)
         next if current.nil? || current.strip.length.zero?
         encryption = set_up_encryption
-        crypt = encryption.update(public_send(param)) + encryption.final
+        crypt = encryption.update(current) + encryption.final
         public_send("#{param}=", Base64.encode64(crypt))
       end
-      encryption_iv = iv
+      public_send(:encryption_iv=, iv)
       self
     end
 
     def decrypt!
       %i(text password).each do |param|
-        next if public_send(param).nil?
+        current = public_send(param)
+        next if current.nil? || current.strip.length.zero?
         decryption = set_up_decryption
-        crypt = decryption.update(Base64.decode64(public_send(param))) + decryption.final
+        crypt = decryption.update(Base64.decode64(current)) + decryption.final
         public_send("#{param}=", crypt)
       end
       self
@@ -37,7 +38,7 @@ module Message
     end
 
     def iv
-      encryption_iv || OpenSSL::Cipher.new(algorithm).random_iv
+      @iv ||= SecureRandom.hex
     end
 
     def set_up_encryption
@@ -52,7 +53,7 @@ module Message
       OpenSSL::Cipher.new(algorithm).tap do |aes|
         aes.decrypt
         aes.key = key
-        aes.iv = iv
+        aes.iv = encryption_iv
       end
     end
   end

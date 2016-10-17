@@ -28,6 +28,10 @@ module Message
       Encryptor.new(current_params).encrypt!
     end
 
+    def decrypt!
+      Encryptor.new(current_params).decrypt!
+    end
+
     def valid?
       Validator.new(current_params).valid?
     end

@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
 RSpec.describe Message::Encryptor do
-  let(:iv) { "d9'@\xD78q\xBF\xC5-Z\xAC\xC48Zy" }
+  let(:iv) { SecureRandom.hex }
   let(:params) { { text: 'lorem', hours: 3, visits: 5, password: 'ipsum', encryption_iv: iv} }
   let(:message) { Message::Encryptor.new(params) }
 
@@ -41,6 +41,11 @@ RSpec.describe Message::Encryptor do
   end
 
   describe 'decryption' do
+    it 'will return message' do
+      message.encrypt!
+      expect(message.decrypt!).to eq message
+    end
+
     it 'will update origin text' do
       message.encrypt!
       message.decrypt!
@@ -51,6 +56,17 @@ RSpec.describe Message::Encryptor do
       message.encrypt!
       message.decrypt!
       expect(message.password).to eq 'ipsum'
+    end
+
+    it 'will not raise error if param is not present', t: true do
+      [
+        { text: 'lorem', hours: 3, visits: 5, encryption_iv: iv},
+        { text: 'lorem', hours: 3, visits: 5, password: '', encryption_iv: iv}
+      ].each do |params|
+        message = Message::Encryptor.new(params)
+        message.encrypt!
+        expect(message.decrypt!).to eq message
+      end
     end
   end
 end

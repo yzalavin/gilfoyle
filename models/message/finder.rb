@@ -11,7 +11,7 @@ module Message
       Base.new(params).tap do |message|
         message.visits = message.visits - 1
         message.visits.zero? ? destroy : decrement_counter(message)
-      end
+      end.decrypt!
     end
 
     private
