@@ -6,6 +6,7 @@ body {
 
 .error-field {
   color: red;
+  font-size: 13px;
 }
 
 .main-form {
