@@ -5,6 +5,8 @@ RSpec.describe Message::Creator do
   subject(:message) { Message::Creator.new(params) }
   let(:store_key) { 'test_key' }
 
+  # before { }
+
   describe 'validations' do
     it 'will be called before storing an object' do
       expect(message).to receive(:valid?)
@@ -44,6 +46,27 @@ RSpec.describe Message::Creator do
       allow(message).to receive(:store_key).and_return(store_key)
       message.store!
       expect(JSON.parse(Redis.current.get('message:test_key'))['text']).to_not eq message.text
+    end
+  end
+
+  describe 'background process', t: true do
+    it 'will call it if days is more than zero' do
+      allow(message).to receive(:valid?).and_return(true)
+      expect(Message::DestroyWorker).to receive(:perform)
+      message.store!
+    end
+
+    # it 'will send actual date to perform' do
+    #   allow(message).to receive(:valid?).and_return(true)
+    #   expect(Message::DestroyWorker).to receive(:perform).with()
+    #   message.store!
+    # end
+
+    it 'will not call it if days is zero or missing' do
+      message = Message::Creator.new(text: 'lorem', days: nil, visits: 5)
+      allow(message).to receive(:valid?).and_return(true)
+      expect(Message::DestroyWorker).to_not receive(:perform)
+      message.store!
     end
   end
 end

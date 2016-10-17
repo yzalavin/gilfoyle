@@ -6,6 +6,7 @@ module Message
     def store!
       return Message::Error.new(current_params) unless valid?
       Redis.current.set "message:#{store_key}", to_encrypted_json
+      create_background_process
       self
     end
 
@@ -18,6 +19,11 @@ module Message
     def to_encrypted_json
       current_params.to_json
       # encrypt!.current_params.to_json
+    end
+
+    def create_background_process
+      return unless days.to_i > 0
+      Message::DestroyWorker.perform(3)
     end
   end
 end
