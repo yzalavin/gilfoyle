@@ -36,6 +36,7 @@ textarea, input {
   border: none;
   text-decoration: none;
   resize: none;
+  font-size: 12px;
 }
 
 textarea {
